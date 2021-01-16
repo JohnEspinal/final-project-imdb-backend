@@ -3,14 +3,17 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
 const movieRouter = require('./routes/movies.js');
+const CONNECTION_URL = require('../config.js');
+const cors = require('cors');
 
 app.use(bodyparser.json({ limit: "15mb", extended: true}));
 app.use(bodyparser.urlencoded({limit: "15mb", extended: true}));
+app.use(cors());
 
-app.use('/posts', movieRouter);
+app.use('/movies', movieRouter);
 
 const PORT = process.env.PORT || 3001;
-const CONNECTION_URL = 'mongodb+srv://finalprojectuser:finalprojectuser@cluster0.q90d4.mongodb.net/<dbname>?retryWrites=true&w=majorityCopy';
+
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true})
     .then(()=> app.listen(PORT, ()=> console.log(`Server running on port ${PORT}`)))
