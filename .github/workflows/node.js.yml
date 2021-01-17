@@ -36,7 +36,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         # The test command to run
-        test-command: npm testcov
+        test-command: npm test
     - name: Jest Code Coverage Report
       # You may pin to the exact commit or the version.
       # uses: ziishaned/jest-reporter-action@872c1051350ecaf625ba2490d68e7cb63854b44c
@@ -46,3 +46,14 @@ jobs:
       #  github-token: ${{ secrets.GITHUB_TOKEN }}
         # Specify a command to run the tests
        # test-command: "npm run testcov" 
+    - name: Jest Lcov Reporter
+      # You may pin to the exact commit or the version.
+      # uses: vebr/jest-lcov-reporter@b0d5ae85c950eb9f07bf30fc71495f34369b080d
+      uses: vebr/jest-lcov-reporter@v0.2.0
+      with:
+        # Github token
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        # The location of the lcov.info file
+     #   lcov-file: # optional
+        # The location of the lcov file for the base branch
+     #   lcov-base: # optional
