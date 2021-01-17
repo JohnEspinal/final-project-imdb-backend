@@ -27,7 +27,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
     #- run: npm run build --if-present
-    - run: npm run testcov
+    - run: npm test
     - name: Jest Annotations & Coverage
       # You may pin to the exact commit or the version.
       # uses: mattallty/jest-github-action@43bbcd073fa43a927322f188220b6592acae003b
@@ -36,15 +36,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         # The test command to run
-        test-command: npm test 
-    - name: Jest Lcov Reporter
-      # You may pin to the exact commit or the version.
-      # uses: vebr/jest-lcov-reporter@b0d5ae85c950eb9f07bf30fc71495f34369b080d
-      uses: vebr/jest-lcov-reporter@v0.2.0
-      with:
-        # Github token
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        # The location of the lcov.info file
-     #   lcov-file: # optional
-        # The location of the lcov file for the base branch
-     #   lcov-base: # optional
+        test-command: npm run testcov 
