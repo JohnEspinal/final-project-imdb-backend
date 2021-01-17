@@ -33,7 +33,7 @@ jobs:
       # uses: mattallty/jest-github-action@43bbcd073fa43a927322f188220b6592acae003b
       uses: mattallty/jest-github-action@v1.0.3
       env:
-        GITHUB_TOKEN: ${{ secrets.PUBLIC_REPOSITORIES_ACCESS_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         # The test command to run
         test-command: npm test
