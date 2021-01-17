@@ -37,3 +37,4 @@ jobs:
       with:
         # The test command to run
         test-command: npm run testcov 
+        coverage-comment: true
