@@ -36,13 +36,13 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         # The test command to run
-        test-command: npm test
+        test-command: npm testcov
     - name: Jest Code Coverage Report
       # You may pin to the exact commit or the version.
       # uses: ziishaned/jest-reporter-action@872c1051350ecaf625ba2490d68e7cb63854b44c
       uses: ziishaned/jest-reporter-action@0.1.1
-      with:
+     # with:
         # Github token
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+      #  github-token: ${{ secrets.GITHUB_TOKEN }}
         # Specify a command to run the tests
-        test-command: "npm run testcov" 
+       # test-command: "npm run testcov" 
