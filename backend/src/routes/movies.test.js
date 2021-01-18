@@ -35,9 +35,17 @@ const clearDatabase = async () => {
 //inicio de pruebas
 
 beforeAll(async () => await connect());
+afterEach(async () => await clearDatabase());
 afterAll(async () => await closeDatabase());
 
-
+const movieObject = {
+  title: "titulo de pelicula",
+  description: "descripcion de pelicula",
+  movieReleaseDate: new Date("2001-02-20"),
+  cast: ["Actor Principal", "Actor Secundario"],
+  genre: ["Primer genero","Segundo genero"],
+  languages: ["primer idioma","segundo idioma"]
+};
 
 test('TC1 - Test getting from an empty database', async () => {
   const result = await movies.getMovies();
@@ -45,15 +53,8 @@ test('TC1 - Test getting from an empty database', async () => {
 });
 
 test('TC2 - Test getting from a database with 4 movies', async () => {
-  const movieObject = {
-    title: "titulo de pelicula",
-    description: "descripcion de pelicula",
-    movieReleaseDate: new Date("2001-02-20"),
-    cast: ["Actor Principal", "Actor Secundario"],
-    genre: ["Primer genero","Segundo genero"],
-    languages: ["primer idioma","segundo idioma"]
-  };
-  ;
+
+
   for (let index = 0; index < 4; index++) {
     const newMovie = new MovieModel(movieObject);
     await newMovie.save()
@@ -68,6 +69,14 @@ test('TC2 - Test getting from a database with 4 movies', async () => {
       expect(JSON.stringify(obj[key])).toBe(JSON.stringify(movieObject[key]));
     }
   }
+});
+
+test('TC3 - Test adding 4 movies to the database', async () => {
+  for (let i = 0; i < 4; i++){
+    await movies.addMovie(movieObject);
+  }
+  const result = await MovieModel.find();
+  expect(result.length).toBe(4);
 });
 
 // test('prueba', () => {
