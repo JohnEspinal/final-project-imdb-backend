@@ -41,14 +41,34 @@ afterAll(async () => await closeDatabase());
 
 test('TC1 - Test getting from an empty database', async () => {
   const result = await movies.getMovies();
-  expect(0).toBe(result.length);
+  expect(result.length).toBe(0);
 });
 
-// test('Test getting from an empty database', async () => {
-//   const result = await movies.getMovies();
+test('TC2 - Test getting from a database with 4 movies', async () => {
+  const movieObject = {
+    title: "titulo de pelicula",
+    description: "descripcion de pelicula",
+    movieReleaseDate: new Date("2001-02-20"),
+    cast: ["Actor Principal", "Actor Secundario"],
+    genre: ["Primer genero","Segundo genero"],
+    languages: ["primer idioma","segundo idioma"]
+  };
+  ;
+  for (let index = 0; index < 4; index++) {
+    const newMovie = new MovieModel(movieObject);
+    await newMovie.save()
+  }
+  const result = await movies.getMovies()
+  expect(result.length).toBe(4);
 
-//   expect(0).toBe(result.length);
-// });
+  const obj = JSON.parse(JSON.stringify(result[0].toObject()));
+  for (let i = 0; i < result.length; i++){
+    const obj = result[i].toObject();
+    for (let key of Object.keys(movieObject)) {
+      expect(JSON.stringify(obj[key])).toBe(JSON.stringify(movieObject[key]));
+    }
+  }
+});
 
 // test('prueba', () => {
 //   expect(0).toBe(0);
