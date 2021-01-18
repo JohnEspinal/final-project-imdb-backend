@@ -1,73 +1,29 @@
-const router = require('express').Router();
 const MovieModel = require('../models/movie');
 
+const movies = {
+    //Get all the movies
+    getMovies: async () => {
+        return await MovieModel.find();
+    },
 
-//Get all the movies
-router.get('/', async (req, res) => {
-    try {
-        let movies = await MovieModel.find();
-
-        res.status(200).json(movies);
-    } catch (error) {
-        res.status(404).json({message: error.message});
-    }
-});
-
-
-//Add a new movie
-router.post('/add', async (req, res) =>{
-    const movie = req.body;
-
-    const newMovie = new MovieModel(movie);
-
-    try {
+    //Add a new movie
+    addMovie: async (movie) => {
+        const newMovie = new MovieModel(movie);
         await newMovie.save();
+        return newMovie;
+    },
 
-        res.status(201).json(newMovie);
+    //Update a movie
+    updateMovie: async (movieId, movie) => {
+        return await MovieModel.findByIdAndUpdate(movieId, movie);
+    },
 
-
-    } catch (error) {
-        res.status(409).json({ message: error.message});
+    //Delete a movie
+    deleteMovie: async (movieId) => {
+        return await MovieModel.findByIdAndDelete(movieId);
     }
-});
+}
+module.exports = movies;
 
 
-//Modified an existing note
-router.put('/edit/:id', async (req, res) =>{
-    const movieId = req.params.id;
-
-    const {title, description, postedDate, movieReleaseDate, cast, genre, languages} = req.body;
-
-    try {
-        let Movie = await MovieModel.findByIdAndUpdate(movieId, {title, description, postedDate, movieReleaseDate, cast, genre, languages});
-
-
-
-        res.status(201).json(Movie);
-
-
-    } catch (error) {
-        res.status(409).json({ message: error.message});
-    }
-});
-
-
-//Delete a movie
-router.delete('/delete/:id', async (req, res) =>{
-    const movieId = req.params.id;
-
-    try {
-        await MovieModel.findByIdAndDelete(movieId);
-
-
-        res.status(201);
-
-
-    } catch (error) {
-        res.status(409).json({ message: error.message});
-    }
-});
-
-
-module.exports = router;
 
