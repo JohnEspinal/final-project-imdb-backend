@@ -90,6 +90,15 @@ test('TC4 - Test updating a movie', async () => {
   expect(result[0].title).toBe(testMovie.title);
 });
 
+test('TC5 - Test deleting a movie', async () => {
+  const newMovie = new MovieModel(movieObject);
+  await newMovie.save();
+  const docs = await MovieModel.find();
+  let testMovie = docs[0];
+  await movies.deleteMovie(testMovie._id);
+  const result = await MovieModel.find();
+  expect(result.length).toBe(0);
+});
 // test('prueba', () => {
 //   expect(0).toBe(0);
 // });
