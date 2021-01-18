@@ -79,6 +79,17 @@ test('TC3 - Test adding 4 movies to the database', async () => {
   expect(result.length).toBe(4);
 });
 
+test('TC4 - Test updating a movie', async () => {
+  const newMovie = new MovieModel(movieObject);
+  await newMovie.save();
+  const docs = await MovieModel.find();
+  let testMovie = docs[0];
+  testMovie.title = "Nuevo titulo";
+  await movies.updateMovie(testMovie._id,testMovie);
+  const result = await MovieModel.find();
+  expect(result[0].title).toBe(testMovie.title);
+});
+
 // test('prueba', () => {
 //   expect(0).toBe(0);
 // });
