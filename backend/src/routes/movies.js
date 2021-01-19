@@ -21,6 +21,9 @@ const movies = {
     //Delete a movie
     deleteMovie: async (movieId) => {
         return await MovieModel.findByIdAndDelete(movieId);
+    },
+    getHelloWorld: () => {
+        return "Hello world"
     }
 }
 module.exports = movies;
