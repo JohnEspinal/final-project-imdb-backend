@@ -99,6 +99,9 @@ test('TC5 - Test deleting a movie', async () => {
   const result = await MovieModel.find();
   expect(result.length).toBe(0);
 });
-// test('prueba', () => {
-//   expect(0).toBe(0);
-// });
+
+
+test('TC6 - Tests Hello World', () => {
+
+  expect(movies.getHelloWorld()).toBe("Hello world");
+});
